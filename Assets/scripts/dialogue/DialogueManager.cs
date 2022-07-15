@@ -19,12 +19,14 @@ public class DialogueManager : MonoBehaviour
 
 	private Dialogue currentDialogue;
 
-	private Queue<string> sentences;
+	private Queue<DialogueLine> sentences;
+
+	public DataManager dataManager;
 
 	// Use this for initialization
 	void Start()
 	{
-		sentences = new Queue<string>();
+		sentences = new Queue<DialogueLine>();
 		rectTransform = GetComponent<RectTransform>();
 
 		positionSpring = new Utils.SpringData();
@@ -54,8 +56,9 @@ public class DialogueManager : MonoBehaviour
 		nameText.text = dialogue.name;
 		nextImg.enabled = false;
 		sentences.Clear();
+		dialogueText.text = "";
 
-		foreach (string sentence in dialogue.lines)
+		foreach (var sentence in dialogue.FilteredLines)
 		{
 			sentences.Enqueue(sentence);
 		}
@@ -72,20 +75,21 @@ public class DialogueManager : MonoBehaviour
 			return;
 		}
 
-		string sentence = sentences.Dequeue();
+		var sentence = sentences.Dequeue();
 		StopAllCoroutines();
 		StartCoroutine(TypeSentence(sentence));
 	}
 
-	IEnumerator TypeSentence(string sentence)
+	IEnumerator TypeSentence(DialogueLine line)
 	{
 		dialogueText.text = "";
-		foreach (char letter in sentence.ToCharArray())
+		foreach (char letter in line.text.ToCharArray())
 		{
 			dialogueText.text += letter;
 			yield return null;
 		}
 		nextImg.enabled = true;
+		if (line.flagToSet != EventFlag.None) dataManager.SetEventComplete(line.flagToSet);
 	}
 
 	void EndDialogue()
