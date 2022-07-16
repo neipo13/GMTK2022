@@ -9,6 +9,8 @@ public class ItemInteraction : MonoBehaviour, IInteractable
     public Dialogue dialogue;
     public PlayerController playerController;
 
+    public string SceneChange;
+
     public void Awake()
     {
         playerController = FindObjectOfType<PlayerController>();
@@ -22,6 +24,7 @@ public class ItemInteraction : MonoBehaviour, IInteractable
 
     public void ExitInteractionArea()
     {
+        DialogueManager.EndDialogue();
         playerController.UnsetInteractable();
     }
 

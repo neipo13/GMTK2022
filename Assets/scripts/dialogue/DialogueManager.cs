@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
@@ -12,16 +13,22 @@ public class DialogueManager : MonoBehaviour
 	public TextMeshProUGUI dialogueText;
 	public Image nextImg;
 
+	public GameObject Option1;
+	public GameObject Option2;
+	public Button option1Button;
+	public Button option2Button;
+	public TextMeshProUGUI option1Text;
+	public TextMeshProUGUI option2Text;
+
 	public float OnScreenY = -140;
 	public float OffScreenY = 900;
 
 	public Utils.SpringData positionSpring;
 
 	private Dialogue currentDialogue;
+	private DialogueLine currentLine;
 
 	private Queue<DialogueLine> sentences;
-
-	public DataManager dataManager;
 
 	// Use this for initialization
 	void Start()
@@ -66,6 +73,18 @@ public class DialogueManager : MonoBehaviour
 		DisplayNextSentence();
 	}
 
+	public void PlayerHitNext()
+    {
+ 		if (currentLine == null) return;
+		if(!string.IsNullOrWhiteSpace(currentLine.Option1?.Text) || !string.IsNullOrWhiteSpace(currentLine.Option2?.Text))
+        {
+			return;
+        }
+
+
+		DisplayNextSentence();
+	}
+
 	public void DisplayNextSentence()
 	{
 		nextImg.enabled = false;
@@ -75,10 +94,38 @@ public class DialogueManager : MonoBehaviour
 			return;
 		}
 
-		var sentence = sentences.Dequeue();
+		currentLine = sentences.Dequeue();
+		if(currentLine.Option1 != null && !string.IsNullOrWhiteSpace(currentLine.Option1.Text))
+        {
+			option1Button.onClick?.RemoveAllListeners();
+			Option1.SetActive(true);
+			option1Text.SetText(currentLine.Option1.Text);
+			option1Button.onClick.AddListener(() => OptionClicked(currentLine.Option1.OnChoice));
+        }
+        else
+		{
+			Option1.SetActive(false);
+		}
+		if (currentLine.Option2 != null && !string.IsNullOrWhiteSpace(currentLine.Option2.Text))
+		{
+			option2Button.onClick?.RemoveAllListeners();
+			Option2.SetActive(true);
+			option2Text.SetText(currentLine.Option2.Text);
+			option2Button.onClick.AddListener(() => OptionClicked(currentLine.Option2.OnChoice));
+		}
+		else
+		{
+			Option2.SetActive(false);
+		}
 		StopAllCoroutines();
-		StartCoroutine(TypeSentence(sentence));
+		StartCoroutine(TypeSentence(currentLine));
 	}
+
+	void OptionClicked(UnityEvent ue)
+    {
+		ue?.Invoke();
+		DisplayNextSentence();
+    }
 
 	IEnumerator TypeSentence(DialogueLine line)
 	{
@@ -89,11 +136,12 @@ public class DialogueManager : MonoBehaviour
 			yield return null;
 		}
 		nextImg.enabled = true;
-		if (line.flagToSet != EventFlag.None) dataManager.SetEventComplete(line.flagToSet);
+		if (line.flagToSet != EventFlag.None) DataHolder.SetEventComplete(line.flagToSet);
 	}
 
-	void EndDialogue()
+	public void EndDialogue()
 	{
+		currentLine = null;
 		positionSpring.goal = OffScreenY;
 		currentDialogue = null;
 	}

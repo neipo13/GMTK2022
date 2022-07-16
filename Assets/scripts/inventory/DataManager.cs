@@ -4,21 +4,13 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    public EventFlag completedEvents;
-    public EventFlag SetEventComplete(EventFlag ev)
+    public void ToldHintBoy()
     {
-        completedEvents = completedEvents | ev;
-        return completedEvents;
+        DataHolder.SetEventComplete(EventFlag.ToldHintBoy);
     }
 
-    public bool CheckEventComplete(EventFlag ev)
+    public void RiggedSlotMachine()
     {
-        return (completedEvents & ev) == ev;
-    }
-
-    public EventFlag RemoveCompletedEvent(EventFlag ev)
-    {
-        completedEvents = completedEvents & ev;
-        return completedEvents;
+        DataHolder.SetEventComplete(EventFlag.GladysWon);
     }
 }

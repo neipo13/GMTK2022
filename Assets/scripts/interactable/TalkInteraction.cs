@@ -23,6 +23,7 @@ public class TalkInteraction : MonoBehaviour, IInteractable
 
     public void ExitInteractionArea()
     {
+        DialogueManager.EndDialogue();
         playerController.UnsetInteractable();
     }
 
@@ -30,7 +31,7 @@ public class TalkInteraction : MonoBehaviour, IInteractable
     {
         if (DialogueManager.CheckDialoguePlaying(dialogue))
         {
-            DialogueManager.DisplayNextSentence();
+            DialogueManager.PlayerHitNext();
         }
         else
         {

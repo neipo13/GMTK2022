@@ -1,6 +1,7 @@
 using Prime31;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Utils;
 
@@ -9,28 +10,31 @@ public class PlayerController : MonoBehaviour
     public float moveSpeedMax = 5f;
     public float acceleration = 20f;
     private CharacterController2D controller;
+    private TextMeshPro inspect;
     [SerializeField]
     private Vector2 velocity;
     [SerializeField]
     private Vector2 input;
 
     private SpriteRenderer sprite;
-    [SerializeField]
-    private SpringDataVec2 squashStretchSpring;
 
     private IInteractable currentInteractable;
+
+    private Wobbler wobbler;
+
+    public GameObject InteractTextObj;
 
     // Start is called before the first frame update
     void Start()
     {
         controller = gameObject.GetComponent<CharacterController2D>();
         sprite = gameObject.GetComponentInChildren<SpriteRenderer>();
+        wobbler = gameObject.GetComponent<Wobbler>();
+        inspect = gameObject.GetComponentInChildren<TextMeshPro>();
 
-        squashStretchSpring = new SpringDataVec2();
-        squashStretchSpring.goal = new Vector2(1f, 1f);
-        squashStretchSpring.damping = 0.6f;
-        squashStretchSpring.frequency = 10f;
-        squashStretchSpring.current = new Vector2(1f, 2f);
+        InteractTextObj.SetActive(false);
+
+        gameObject.transform.position = DataHolder.playerPosition;
     }
 
     // Update is called once per frame
@@ -39,9 +43,16 @@ public class PlayerController : MonoBehaviour
         input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         input.Normalize();
 
-        squashStretchSpring.current = sprite.gameObject.transform.localScale;
-        squashStretchSpring.Update(Time.deltaTime);
-        sprite.gameObject.transform.localScale = new Vector3(squashStretchSpring.current.x, squashStretchSpring.current.y, 1f);
+        if(input == Vector2.zero)
+        {
+            wobbler.ShouldWobble = false;
+            wobbler.ShouldSquashStretch = false;
+        }
+        else
+        {
+            wobbler.ShouldWobble = true;
+            wobbler.ShouldSquashStretch = true;
+        }
 
 
         if(Input.GetKeyDown(KeyCode.Space) && currentInteractable != null)
@@ -64,9 +75,12 @@ public class PlayerController : MonoBehaviour
     public void SetInteractable(IInteractable interactable)
     {
         currentInteractable = interactable;
+        InteractTextObj.SetActive(true);
+        inspect.text = interactable.InteractionText;
     }
     public void UnsetInteractable() 
     { 
         currentInteractable = null;
+        InteractTextObj.SetActive(false);
     }
 }

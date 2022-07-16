@@ -6,7 +6,9 @@ namespace Utils
     [Serializable]
     public class SpringData
     {
+        [SerializeField]
         public float damping = 0.8f;
+        [SerializeField]
         public float frequency = 20f;
         public float velocity;
 
@@ -17,18 +19,17 @@ namespace Utils
 
         public void Update(float deltaTime)
         {
-            if (current != goal)
-            {
-                SpringMotion.CalcDampedSimpleHarmonicMotion(ref current, ref velocity, goal, deltaTime, frequency, damping);
-                OnChange?.Invoke(this);
-            }
+            SpringMotion.CalcDampedSimpleHarmonicMotion(ref current, ref velocity, goal, deltaTime, frequency, damping);
+            OnChange?.Invoke(this);
         }
     }
 
     [Serializable]
     public class SpringDataVec2
     {
+        [SerializeField]
         public float damping = 0.8f;
+        [SerializeField]
         public float frequency = 20f;
         public Vector2 velocity;
 
