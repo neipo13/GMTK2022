@@ -52,10 +52,15 @@ public class draggable : MonoBehaviour
             Stop();
         }
     }
+
+    public void OnMouseDown()
+    {
+        mousePrevious = Input.mousePosition;
+    }
     public void OnMouseDrag()
     {
         SpunAtLeastOnce = true;
-        var mouseNew = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var mouseNew = Input.mousePosition;
         var diff = new Vector3(0f, ((mouseNew - mousePrevious).y / divsisor) / Time.deltaTime, 0f);
 
         for (int i = 0; i < slotObjects.Length; i++)
@@ -63,6 +68,8 @@ public class draggable : MonoBehaviour
             var slotItem = slotObjects[i];
             slotItem.AddForce(diff, ForceMode2D.Force);
         }
+
+        mousePrevious = mouseNew;
     }
 
     public void Stop()

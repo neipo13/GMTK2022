@@ -30,14 +30,30 @@ public class Wobbler : MonoBehaviour
     private float wobbleTimer = 0f;
     public float WobbleInterval = 0.3f;
 
+    public bool UsesRandomOffset = false;
+    public bool FlipsOnWobble = false;
+
+    SpriteRenderer sprite;
+
 
     private void Start()
     {
+        sprite = GetComponent<SpriteRenderer>();
+
         squashStretchSpring.goal = normalScale;
         squashStretchSpring.current = normalScale;
 
         wobbleSpring.current = normalRotation;
         wobbleSpring.goal = normalRotation;
+
+        if (UsesRandomOffset)
+        {
+            var min = Mathf.Min(WobbleInterval, SquashStretchInterval);
+            var offset = Random.Range(0f, min);
+            squashTimer = offset;
+            wobbleTimer = offset;
+
+        }
     }
 
     public void LateUpdate()
@@ -60,6 +76,10 @@ public class Wobbler : MonoBehaviour
             {
                 wobbleTimer = 0f;
                 WobblingRight = !WobblingRight;
+                if (FlipsOnWobble)
+                {
+                    sprite.flipX = !sprite.flipX;
+                }
             }
             if (WobblingRight)
             {

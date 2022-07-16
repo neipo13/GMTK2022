@@ -45,16 +45,5 @@ public class slotcontroller : MonoBehaviour
         sevenDialogue.lines[0].Option1.OnChoice = new UnityEngine.Events.UnityEvent();
         sevenDialogue.lines[0].Option1.OnChoice.AddListener(() => changer.ChangeScene("OverworldScene"));
 
-
-        sevenDialogue = new Dialogue();
-        sevenDialogue.lines = new DialogueLine[1];
-        sevenDialogue.lines[0] = new DialogueLine();
-        sevenDialogue.lines[0].text = "Gladys deserves as win";
-        sevenDialogue.lines[0].flagToSet = EventFlag.GladysWon;
-        sevenDialogue.lines[0].Option1 = new OptionLine();
-        sevenDialogue.lines[0].Option1.Text = "Nice";
-        sevenDialogue.lines[0].Option1.OnChoice = new UnityEngine.Events.UnityEvent();
-        sevenDialogue.lines[0].Option1.OnChoice.AddListener(() => changer.ChangeScene("OverworldScene"));
-
     }
 }

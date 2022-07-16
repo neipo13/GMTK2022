@@ -13,6 +13,7 @@ public class TalkInteraction : MonoBehaviour, IInteractable
     public void Awake()
     {
         playerController = FindObjectOfType<PlayerController>();
+        if (DialogueManager == null) DialogueManager = FindObjectOfType<DialogueManager>();
     }
 
 
@@ -24,7 +25,7 @@ public class TalkInteraction : MonoBehaviour, IInteractable
     public void ExitInteractionArea()
     {
         DialogueManager.EndDialogue();
-        playerController.UnsetInteractable();
+        playerController.UnsetInteractable(this);
     }
 
     public void Interact()

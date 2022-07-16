@@ -78,9 +78,12 @@ public class PlayerController : MonoBehaviour
         InteractTextObj.SetActive(true);
         inspect.text = interactable.InteractionText;
     }
-    public void UnsetInteractable() 
-    { 
-        currentInteractable = null;
-        InteractTextObj.SetActive(false);
+    public void UnsetInteractable(IInteractable interactable) 
+    {
+        if (currentInteractable == interactable)
+        {
+            currentInteractable = null;
+            InteractTextObj.SetActive(false);
+        }
     }
 }

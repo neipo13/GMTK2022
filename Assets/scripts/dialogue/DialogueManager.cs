@@ -27,6 +27,7 @@ public class DialogueManager : MonoBehaviour
 
 	private Dialogue currentDialogue;
 	private DialogueLine currentLine;
+	public CameraZoom zoom;
 
 	private Queue<DialogueLine> sentences;
 
@@ -35,6 +36,7 @@ public class DialogueManager : MonoBehaviour
 	{
 		sentences = new Queue<DialogueLine>();
 		rectTransform = GetComponent<RectTransform>();
+		if (zoom == null) zoom = FindObjectOfType<CameraZoom>();
 
 		positionSpring = new Utils.SpringData();
 		positionSpring.goal = OffScreenY;
@@ -57,10 +59,10 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
 	{
+		zoom?.Zoom();
 		currentDialogue = dialogue;
 		positionSpring.goal = OnScreenY;
 
-		nameText.text = dialogue.name;
 		nextImg.enabled = false;
 		sentences.Clear();
 		dialogueText.text = "";
@@ -100,7 +102,7 @@ public class DialogueManager : MonoBehaviour
 			option1Button.onClick?.RemoveAllListeners();
 			Option1.SetActive(true);
 			option1Text.SetText(currentLine.Option1.Text);
-			option1Button.onClick.AddListener(() => OptionClicked(currentLine.Option1.OnChoice));
+			option1Button.onClick?.AddListener(() => OptionClicked(currentLine.Option1.OnChoice));
         }
         else
 		{
@@ -111,7 +113,7 @@ public class DialogueManager : MonoBehaviour
 			option2Button.onClick?.RemoveAllListeners();
 			Option2.SetActive(true);
 			option2Text.SetText(currentLine.Option2.Text);
-			option2Button.onClick.AddListener(() => OptionClicked(currentLine.Option2.OnChoice));
+			option2Button.onClick?.AddListener(() => OptionClicked(currentLine.Option2.OnChoice));
 		}
 		else
 		{
@@ -129,6 +131,7 @@ public class DialogueManager : MonoBehaviour
 
 	IEnumerator TypeSentence(DialogueLine line)
 	{
+		nameText.text = line.name;
 		dialogueText.text = "";
 		foreach (char letter in line.text.ToCharArray())
 		{
@@ -136,6 +139,8 @@ public class DialogueManager : MonoBehaviour
 			yield return null;
 		}
 		nextImg.enabled = true;
+		if (line.givesItem != InventoryFlag.None) DataHolder.SetItemObtained(line.givesItem);
+		if (line.removesItem != InventoryFlag.None) DataHolder.RemoveObtainedItem(line.removesItem);
 		if (line.flagToSet != EventFlag.None) DataHolder.SetEventComplete(line.flagToSet);
 	}
 
@@ -144,6 +149,7 @@ public class DialogueManager : MonoBehaviour
 		currentLine = null;
 		positionSpring.goal = OffScreenY;
 		currentDialogue = null;
+		zoom?.Normal();
 	}
 
 }
