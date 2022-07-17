@@ -21,4 +21,13 @@ public class DataManager : MonoBehaviour
         DataHolder.SetEventComplete(EventFlag.BlocksKnocked);
         //remove all inventory?
     }
+
+
+
+    public void StartAdventure()
+    {
+        DataHolder.currentItems = InventoryFlag.None;
+        DataHolder.completedEvents = EventFlag.None;
+        DataHolder.playerPosition = new Vector3(0f, -13f, 0f);
+    }
 }

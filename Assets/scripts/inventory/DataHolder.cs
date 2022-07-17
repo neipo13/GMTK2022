@@ -48,6 +48,7 @@ public static class DataHolder
     }
     #endregion
 
+
     public static IEnumerable<Enum> GetFlags(this Enum e)
     {
         return Enum.GetValues(e.GetType()).Cast<Enum>().Where(v => !Equals((int)(object)v, 0) && e.HasFlag(v)); ;

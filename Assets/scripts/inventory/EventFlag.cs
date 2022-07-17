@@ -16,4 +16,6 @@ public enum EventFlag
     Virtuous = 1 << 6,
     CardGiven = 1 << 7,
     BlocksKnocked = 1 << 8,
+    OpeningScene = 1 << 9,
+    ChipsTaken = 1 << 10,
 }
