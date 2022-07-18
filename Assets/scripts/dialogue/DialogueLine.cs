@@ -21,6 +21,8 @@ public class DialogueLine
 
     public OptionLine Option1;
     public OptionLine Option2;
+
+    public float defaultPitch = 1f;
 }
 
 [System.Serializable]

@@ -26,6 +26,11 @@ public class ChompController : MonoBehaviour
 
     public Vector2 chompScale;
 
+    public AudioSource source;
+    public AudioClip clip;
+
+    public float vol;
+
     void Start()
     {
         sprite = GetComponentInChildren<SpriteRenderer>();
@@ -74,6 +79,9 @@ public class ChompController : MonoBehaviour
 
     private void OnMouseUp()
     {
+        source.clip = clip;
+        source.volume = vol;
+        source.Play();
         chompSpring.current = chompScale;
         //try chomp
         var hit = Physics2D.OverlapCircle(transform.position, 0.2f, chompSpotMask);

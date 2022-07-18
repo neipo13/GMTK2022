@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     public float moveSpeedMax = 5f;
     public float acceleration = 20f;
     private CharacterController2D controller;
-    private TextMeshPro inspect;
     [SerializeField]
     private Vector2 velocity;
     [SerializeField]
@@ -24,13 +23,17 @@ public class PlayerController : MonoBehaviour
 
     public GameObject InteractTextObj;
 
+    public Sprite talkSprite;
+    public Sprite inspectSprite;
+    private SpriteRenderer inspectionSpriteRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
         controller = gameObject.GetComponent<CharacterController2D>();
         sprite = gameObject.GetComponentInChildren<SpriteRenderer>();
         wobbler = gameObject.GetComponent<Wobbler>();
-        inspect = gameObject.GetComponentInChildren<TextMeshPro>();
+        inspectionSpriteRenderer = InteractTextObj.GetComponentInChildren<SpriteRenderer>();
 
         InteractTextObj.SetActive(false);
 
@@ -77,7 +80,18 @@ public class PlayerController : MonoBehaviour
     {
         currentInteractable = interactable;
         InteractTextObj.SetActive(true);
-        inspect.text = interactable.InteractionText;
+        switch (interactable.InteractionText.ToLower())
+        {
+            case "inspect":
+                inspectionSpriteRenderer.sprite = inspectSprite;
+                break;
+            case "talk":
+                inspectionSpriteRenderer.sprite = talkSprite;
+                break;
+            default:
+                inspectionSpriteRenderer.sprite = null;
+                break;
+        }
     }
     public void UnsetInteractable(IInteractable interactable) 
     {

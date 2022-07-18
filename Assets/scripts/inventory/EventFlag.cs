@@ -18,4 +18,5 @@ public enum EventFlag
     BlocksKnocked = 1 << 8,
     OpeningScene = 1 << 9,
     ChipsTaken = 1 << 10,
+    MetBeth = 1 << 11,
 }

@@ -48,6 +48,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPos: {x: 0, y: 0}
   forceMultiplier: 3000
+  spriteSwitchVelocity: 0.2
+  rollingFrameChangeTime: 0.1
+  rollingSprites:
+  - {fileID: 21300000, guid: 927b0cfdac0d923479153468293069f4, type: 3}
+  - {fileID: 21300000, guid: 4d18e288af4b0214fb5a8cc75ab46a73, type: 3}
+  - {fileID: 21300000, guid: 419f1acf447bdd941987328c07efb454, type: 3}
+  - {fileID: 21300000, guid: 09f29dd6912552a4db51bd51cb0488ba, type: 3}
+  restSprites:
+  - {fileID: 21300000, guid: 9af9ecbe166b8a84784c7f592bd8da7c, type: 3}
+  - {fileID: 21300000, guid: cff70a5e65a70b04fb5a2e128602501a, type: 3}
+  - {fileID: 21300000, guid: 87165da0cae30fc41b2209f1a535382c, type: 3}
+  - {fileID: 21300000, guid: e76dade3504713e4598abec27937d169, type: 3}
+  - {fileID: 21300000, guid: 75e36d04f467b2f46bf1a73f4000bbb6, type: 3}
+  - {fileID: 21300000, guid: 7297c0f92fdbeb14f946969a47b814b8, type: 3}
 --- !u!212 &3057188640696035649
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -89,8 +103,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9433962, g: 0.29814878, b: 0.29814878, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 9af9ecbe166b8a84784c7f592bd8da7c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

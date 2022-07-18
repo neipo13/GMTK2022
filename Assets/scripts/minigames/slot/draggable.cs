@@ -20,6 +20,10 @@ public class draggable : MonoBehaviour
 
     public GameObject center;
     public string CenterItemName;
+    public AudioSource source;
+    public AudioClip clip;
+
+    public float volume = 0.3f;
 
     public void Start()
     {
@@ -40,10 +44,18 @@ public class draggable : MonoBehaviour
             if (slotitem.transform.position.y > yMax)
             {
                 slotitem.transform.position = new Vector3(slotitem.transform.position.x, yMin, slotitem.transform.position.z);
+                source.clip = clip;
+                source.volume = volume;
+                source.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
+                source.Play();
             }
             else if (slotitem.transform.position.y < yMin)
             {
                 slotitem.transform.position = new Vector3(slotitem.transform.position.x, yMax, slotitem.transform.position.z);
+                source.clip = clip;
+                source.volume = volume;
+                source.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
+                source.Play();
             }
         }
 

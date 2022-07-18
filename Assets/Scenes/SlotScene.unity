@@ -608,6 +608,8 @@ MonoBehaviour:
   SpunAtLeastOnce: 0
   center: {fileID: 654481306}
   CenterItemName: 
+  source: {fileID: 1096869695}
+  clip: {fileID: 8300000, guid: 91eec19638eaba84dbe495303083b6e0, type: 3}
 --- !u!1 &263816225
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,11 +663,11 @@ MonoBehaviour:
   won: 0
   dialogueManager: {fileID: 2144329311}
   changer: {fileID: 99488946}
+  source: {fileID: 1096869695}
+  clip: {fileID: 8300000, guid: d4abed074a341c941a639a5b8bef953a, type: 3}
   barDialogue:
-    name: 
     lines: []
   sevenDialogue:
-    name: 
     lines: []
 --- !u!1 &274328338
 GameObject:
@@ -1774,6 +1776,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0adf023ecf3ad14494e679397267749, type: 3}
+--- !u!82 &1096869695 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4529016187098258553, guid: c0adf023ecf3ad14494e679397267749, type: 3}
+  m_PrefabInstance: {fileID: 1096869694}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1142574982
 GameObject:
   m_ObjectHideFlags: 0
@@ -2036,6 +2043,8 @@ MonoBehaviour:
   SpunAtLeastOnce: 0
   center: {fileID: 1142574982}
   CenterItemName: 
+  source: {fileID: 1096869695}
+  clip: {fileID: 8300000, guid: 91eec19638eaba84dbe495303083b6e0, type: 3}
 --- !u!4 &1281803040
 Transform:
   m_ObjectHideFlags: 0
@@ -2672,6 +2681,8 @@ MonoBehaviour:
   SpunAtLeastOnce: 0
   center: {fileID: 671187268}
   CenterItemName: 
+  source: {fileID: 1096869695}
+  clip: {fileID: 8300000, guid: 91eec19638eaba84dbe495303083b6e0, type: 3}
 --- !u!4 &1846305879
 Transform:
   m_ObjectHideFlags: 0

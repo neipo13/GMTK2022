@@ -13,6 +13,10 @@ public class slotcontroller : MonoBehaviour
     public DialogueManager dialogueManager;
     public SceneChanger changer;
 
+    public AudioSource source;
+    public AudioClip clip;
+    public float volume = 0.3f;
+
     // Update is called once per frame
     void Update()
     {
@@ -20,6 +24,9 @@ public class slotcontroller : MonoBehaviour
             Left.CenterItemName == Center.CenterItemName && Center.CenterItemName == Right.CenterItemName)
         {
             won = true;
+            source.volume = volume;
+            source.clip = clip;
+            source.Play();
             switch (Left.CenterItemName)
             {
                 default:
